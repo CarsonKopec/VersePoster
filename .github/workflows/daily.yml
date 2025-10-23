@@ -1,15 +1,30 @@
 name: Daily Verse Poster
+
 on:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "0 13 * * *"
   workflow_dispatch:
+
 jobs:
   run:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt
-      - run: python -m VersePoster.main
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Verse Poster
+        env:
+          DISCORD_WEBHOOK_URLS: ${{ secrets.DISCORD_WEBHOOK_URLS }}
+          SLACK_WEBHOOK_URLS: ${{ secrets.SLACK_WEBHOOK_URLS }}
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: python -m VersePoster.main

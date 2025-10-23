@@ -4,8 +4,8 @@ import requests
 from ..core.base_platform import BasePlatform
 
 class DiscordClient(BasePlatform):
-    def __init__(self, webhook_url: str):
-        self.webhook_url = webhook_url
+    def __init__(self, webhook_urls: list[str]):
+        self.webhook_urls = webhook_urls
 
     def post(self, embed_data: dict):
         """
@@ -43,8 +43,11 @@ class DiscordClient(BasePlatform):
             "embeds": [embed]
         }
 
-        response = requests.post(self.webhook_url, json=payload)
-        if not response.ok:
-            print(f"❌ Failed to post to Discord: {response.status_code} {response.text}")
-        else:
-            print("✅ Successfully posted to Discord.")
+        for url in self.webhook_urls:
+            if not url:
+                continue
+            response = requests.post(url, json=payload)
+            if not response.ok:
+                print(f"❌ Failed to post to Discord ({url[:50]}...): {response.status_code} {response.text}")
+            else:
+                print(f"✅ Successfully posted to Discord ({url[:50]}...)")

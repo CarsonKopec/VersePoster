@@ -11,8 +11,8 @@ def main():
     verse_data = verse_provider.get_verse()
     manager = PostManager()
 
-    if settings.DISCORD_WEBHOOK:
-        manager.register_platform(DiscordClient(settings.DISCORD_WEBHOOK))
+    if settings.DISCORD_WEBHOOKS:
+        manager.register_platform(DiscordClient(settings.DISCORD_WEBHOOKS))
 
     if settings.SLACK_WEBHOOK:
         manager.register_platform(SlackClient(settings.SLACK_WEBHOOK))
