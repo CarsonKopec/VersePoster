@@ -1,0 +1,6 @@
+import os
+
+DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1430738610407084113/wNwZPxIYYx-JUug_UXlFFxGzi5DfFiGBHhxfxjIuyCvOJtWb8kUWXX3-jVTEu7Jx8KbK"
+SLACK_WEBHOOK = os.getenv("SLACK_WEBHOOK")
+FACEBOOK_PAGE_ID = os.getenv("FACEBOOK_PAGE_ID")
+FACEBOOK_TOKEN = os.getenv("FACEBOOK_TOKEN")
